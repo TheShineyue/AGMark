@@ -1,11 +1,17 @@
 # AGMark
-[KDD 2026] AGMark: Attention-Guided Dynamic Watermarking for Large Vision-Language Models
+[**KDD 2026**] AGMark: Attention-Guided Dynamic Watermarking for Large Vision-Language Models
 
 ## Quick Start
 
 ### Model
 
 We use InternVL-3.5-8B as an example to show the workflow of AGMark.
+
+### Dataset Preparation
+
+Download the query file `query_generative.json` and images from the [AMBER](https://github.com/junyangwang0410/AMBER) repository.
+
+### Running
 
 ## Citation
 If you find our work useful, please consider citing our paper:
