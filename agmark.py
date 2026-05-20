@@ -1,4 +1,7 @@
+from functools import partial
 import torch
+from transformers import LogitsProcessor, LogitsProcessorList
+
 class SimilarityScheme():
     def __init__(self, similarity_scheme: str) -> None:
         self.similarity_scheme = similarity_scheme
@@ -40,3 +43,44 @@ class SimilarityScheme():
         return self.similarity_scheme_map[self.similarity_scheme](m1, m2)
 def z_norm(x: torch.Tensor) -> torch.Tensor:
     return (x - x.mean()) / (x.std() + 1e-12)
+
+class VLALogitsProcessor(LogitsProcessor):  
+    def __init__(self, vocab_size: int, embedding_matrix: torch.FloatTensor, similarity_scheme: str = "cosine", 
+                 input_embeddings: torch.LongTensor = None, special_tokens: list[int] = None, split_x: int = 2, 
+                 atten_delta = 0.02, sct_radio =0.025, alpha = 0.4, trans_type = None, attn_threshold=0.2) -> None:
+        self.special_tokens = special_tokens
+        self.embedding_matrix = embedding_matrix
+        self.hash_key = 15485863
+        self.vocab_size = vocab_size
+        self.gamma = round(1 / split_x, 2)
+        self.prefix_length = 1
+        self.delta = 3.0
+        self.water_topp = 0.98
+        self.similarity_scheme = SimilarityScheme(similarity_scheme)
+        self.rng = torch.Generator(device='cuda')
+        self.rng.manual_seed(self.hash_key)
+        self.prf = torch.randperm(self.vocab_size, device='cuda', generator=self.rng)
+        self.sim_rng = torch.Generator(device='cpu') 
+        self.msg = None
+        self.list_ids = None
+        self.similarity_list = None
+        self.M_ids = None
+        self.cls = None
+        self.entropy_max = None
+        self.entropy_current = None
+        self.attention_current = None
+        self.similarity_matrix = None
+        self.b_list = []
+        if input_embeddings is not None: 
+            self.refresh_msg(input_embeddings)
+        self.attention_scores = None
+        self.watermark_switch = False
+        self.atten_delta = atten_delta
+        self.sct_radio = sct_radio
+        self.imgs_pos = None
+        self.max_gamma = -1
+        self.alpha = alpha
+        self.hidden_states = None    
+        self.trans_type = trans_type
+        self.attn_threshold = attn_threshold
+        self.attn_entropy_current = None
