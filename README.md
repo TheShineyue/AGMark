@@ -13,6 +13,10 @@ Download the query file `query_generative.json` and images from the [AMBER](http
 
 ### Running
 
+```
+bash run.sh
+```
+
 ## Citation
 If you find our work useful, please consider citing our paper:
 ```
