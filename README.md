@@ -5,7 +5,7 @@
 
 ### Model
 
-We use InternVL-3.5-8B as an example to show the workflow of AGMark.
+We use [Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct) as an example to show the workflow of AGMark.
 
 ### Dataset Preparation
 
