@@ -156,10 +156,12 @@ class WatermarkUtils:
         return inputs    
     
     def custom_generate_responses(self, model, processor, inputs, logits_processor=None) -> str:
+        
         response_map = {
             "qwen3" : self._custom_qwen_responses,
         }
         response_func = response_map.get(self.config.model_name, None) 
+        
         return response_func(model, processor, inputs, logits_processor)
     
     def _image_feature(self, model, inputs, image_pos=None):
