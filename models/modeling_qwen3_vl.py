@@ -3,7 +3,7 @@ from typing import Any, Optional, Union
 from transformers.cache_utils import Cache
 from transformers.utils.generic import check_model_inputs, TransformersKwargs
 from transformers.processing_utils import Unpack
-from .qwen3_vl_generate_utils import CustomGenerationMixin
+from .custom_generate_utils import CustomGenerationMixin
 from torch import nn
 import torch
 
