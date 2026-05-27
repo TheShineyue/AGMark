@@ -78,7 +78,7 @@ def pipeline(utils, params):
         # assert 1==0
 
         with torch.no_grad():
-            refreshed_logits_processor = refresh_logits_processor(model, logits_processor, inputs, utils, image_pos, params.attn_threshold)
+            # refreshed_logits_processor = refresh_logits_processor(model, logits_processor, inputs, utils, image_pos, params.attn_threshold)
             unwatermarked_response = utils.custom_generate_responses(
                     model, processor.tokenizer, inputs, None)
             torch.cuda.empty_cache()
