@@ -17,6 +17,10 @@ Download the query file `query_generative.json` and images from the [AMBER](http
 bash run.sh
 ```
 
+## Acknowledgements
+
+Our work builds upon several excellent model watermarking frameworks, including [VLA-Mark](https://github.com/shiningwhite-cmd/VLA-mark), [MarkLLM](https://github.com/THU-BPM/MarkLLM).
+
 ## Citation
 If you find our work useful, please consider citing our paper:
 ```
